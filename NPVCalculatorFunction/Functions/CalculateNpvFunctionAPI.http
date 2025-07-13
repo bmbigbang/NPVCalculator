@@ -1,0 +1,8 @@
+﻿POST http://localhost:7073/api/CalculateNpv
+Content-Type: application/json
+
+{
+  "initialInvestment": 1000,
+  "discountRate": 0.1,
+  "cashFlows": [200, 300, 400, 500, 600]
+}
