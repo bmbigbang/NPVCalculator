@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPVCalculatorAPI", "NPVCalc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPVCalculatorFunction", "NPVCalculatorFunction\NPVCalculatorFunction.csproj", "{04BC1F26-4A20-456A-8003-ED8FDE89C2AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPVCalculatorFunction.Tests", "NPVCalculatorFunction.Tests\NPVCalculatorFunction.Tests.csproj", "{943C3035-7AE3-4DC7-8221-927873CED60D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{04BC1F26-4A20-456A-8003-ED8FDE89C2AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04BC1F26-4A20-456A-8003-ED8FDE89C2AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04BC1F26-4A20-456A-8003-ED8FDE89C2AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{943C3035-7AE3-4DC7-8221-927873CED60D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{943C3035-7AE3-4DC7-8221-927873CED60D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{943C3035-7AE3-4DC7-8221-927873CED60D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{943C3035-7AE3-4DC7-8221-927873CED60D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
