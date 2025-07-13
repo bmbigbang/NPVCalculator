@@ -26,6 +26,12 @@ public class NPVCalculationController : ControllerBase
     {
         var discountRates = new List<double>();
         var currentRate = boundsRequest.LowerBoundDiscountRate;
+
+        if (boundsRequest.DiscountRateIncrement <= 0)
+        {
+            _logger.LogError("Invalid discount rate increment");
+            return [];
+        }
         
         // Generate all discount rates to test
         while (currentRate <= boundsRequest.UpperBoundDiscountRate)
@@ -73,7 +79,7 @@ public class NPVCalculationController : ControllerBase
 
         // Return results ordered by discount rate
         return npvResults
-            .OrderByDescending(x => x.DiscountRate)
+            .OrderBy(x => x.DiscountRate)
             .Select(x => x.NPV);
     }
 }
