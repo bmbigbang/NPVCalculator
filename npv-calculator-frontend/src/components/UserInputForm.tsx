@@ -69,15 +69,16 @@ export const UserInputForm = ({ setFormData, formData, loading, setSubmit } : Pr
     
     return <>
         <h2 className="text-2xl font-semibold text-gray-800 mb-6">Input Parameters</h2>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6" data-testid="user-input-form">
             {/* Discount Rate Range */}
             <div className="bg-gray-50 p-4 rounded-lg">
                 <h3 className="text-lg font-medium text-gray-700 mb-4">Discount Rate Range</h3>
     
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="form-group">
-                        <label className="form-label whitespace-nowrap">Lower Bound (%)</label>
+                        <label className="form-label whitespace-nowrap" htmlFor="lowerBound">Lower Bound (%)</label>
                         <input
+                            id="lowerBound"
                             type="number"
                             step="0.01"
                             min="0.01"
@@ -93,8 +94,9 @@ export const UserInputForm = ({ setFormData, formData, loading, setSubmit } : Pr
                     </div>
     
                     <div className="form-group">
-                        <label className="form-label whitespace-nowrap">Upper Bound (%)</label>
+                        <label className="form-label whitespace-nowrap" htmlFor="upperBound">Upper Bound (%)</label>
                         <input
+                            id="upperBound"
                             type="number"
                             step="0.01"
                             min="0.01"
@@ -111,8 +113,9 @@ export const UserInputForm = ({ setFormData, formData, loading, setSubmit } : Pr
                 </div>
     
                 <div className="form-group">
-                    <label className="form-label whitespace-nowrap">Increment (%)</label>
+                    <label className="form-label whitespace-nowrap" htmlFor="increment">Increment (%)</label>
                     <input
+                        id="increment"
                         type="number"
                         step="0.001"
                         min="0.001"
@@ -130,8 +133,9 @@ export const UserInputForm = ({ setFormData, formData, loading, setSubmit } : Pr
     
             {/* Initial Investment */}
             <div className="form-group">
-                <label className="form-label">Initial Investment ($)</label>
+                <label className="form-label" htmlFor="initialInvestment">Initial Investment ($)</label>
                 <input
+                    id="initialInvestment"
                     type="number"
                     step="0.01"
                     min="0.01"
@@ -173,6 +177,7 @@ export const UserInputForm = ({ setFormData, formData, loading, setSubmit } : Pr
                             />
                             {formData.cashFlows.length > 1 && (
                                 <button
+                                    data-testid={`remove-${index}`}
                                     type="button"
                                     onClick={() => removeCashFlow(index)}
                                     className="p-2 text-red-600 hover:text-red-800 focus:outline-none"
