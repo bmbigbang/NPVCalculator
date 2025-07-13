@@ -16,3 +16,8 @@ export interface FormErrors {
     initialInvestment?: string;
     general?: string;
 }
+
+export type NPVCalculationResponse = {
+    npv: number;
+    discountRate: number;
+}

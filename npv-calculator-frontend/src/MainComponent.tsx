@@ -4,6 +4,10 @@ import type {FormErrors, NPVCalculationRequest} from "./types/api";
 import {useCalculateNPV} from "./hooks/useCalculateNPV";
 import {validateForm} from "./components/validateForm.ts";
 
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
+
+
 const NPVCalculator: React.FC = () => {
   const [formData, setFormData] = useState<NPVCalculationRequest>({
     lowerBoundDiscountRate: 0.05,
@@ -89,7 +93,7 @@ const NPVCalculator: React.FC = () => {
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mx-4">
           {/* Left Side - Form */}
-          <div className="lg:col-span-3 bg-white rounded-lg shadow-md p-6">
+          <div className="md:col-span-12 lg:col-span-4 bg-white rounded-lg shadow-md p-6">
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">Input Parameters</h2>
             
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -99,7 +103,7 @@ const NPVCalculator: React.FC = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="form-group">
-                    <label className="form-label">Lower Bound (%)</label>
+                    <label className="form-label whitespace-nowrap">Lower Bound (%)</label>
                     <input
                       type="number"
                       step="0.01"
@@ -116,7 +120,7 @@ const NPVCalculator: React.FC = () => {
                   </div>
 
                   <div className="form-group">
-                    <label className="form-label">Upper Bound (%)</label>
+                    <label className="form-label whitespace-nowrap">Upper Bound (%)</label>
                     <input
                       type="number"
                       step="0.01"
@@ -134,7 +138,7 @@ const NPVCalculator: React.FC = () => {
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Increment (%)</label>
+                  <label className="form-label whitespace-nowrap">Increment (%)</label>
                   <input
                     type="number"
                     step="0.001"
@@ -230,7 +234,7 @@ const NPVCalculator: React.FC = () => {
           </div>
 
           {/* Right Side - Chart Placeholder */}
-          <div className="lg:col-span-9 bg-white rounded-lg shadow-md p-6">
+          <div className="md:col-span-12 lg:col-span-8 bg-white rounded-lg shadow-md p-6">
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">Results & Visualization</h2>
             
             {npvValues.length > 0 ? (
@@ -239,7 +243,84 @@ const NPVCalculator: React.FC = () => {
                 <div className="text-gray-500">
                   <div className="text-4xl mb-2">📊</div>
                   <p className="text-lg font-medium">NPV Sensitivity Chart</p>
-                  <p className="text-sm">{npvValues}</p>
+                  <HighchartsReact
+                      highcharts={Highcharts}
+                      options={{
+                        chart: {
+                          type: 'line',
+                          height: 400,
+                          backgroundColor: 'transparent'
+                        },
+                        title: {
+                          text: 'NPV vs Discount Rate',
+                          style: {
+                            fontSize: '16px',
+                            fontWeight: 'bold'
+                          }
+                        },
+                        xAxis: {
+                          title: {
+                            text: 'Discount Rate (%)'
+                          },
+                          labels: {
+                            formatter: function() {
+                              const point = this as any;
+                              return (point.value * 100).toFixed(1) + '%';
+                            }
+                          },
+                          gridLineWidth: 1,
+                          gridLineDashStyle: 'dot'
+                        },
+                        yAxis: {
+                          title: {
+                            text: 'Net Present Value ($)'
+                          },
+                          labels: {
+                            formatter: function() {
+                              const point = this as any;
+                              return '$' + point.value.toLocaleString();
+                            }
+                          },
+                          gridLineWidth: 1,
+                          gridLineDashStyle: 'dot'
+                        },
+                        series: [{
+                          name: 'NPV',
+                          data: npvValues.map(item => [item.discountRate, item.npv]),
+                          color: '#3B82F6',
+                          lineWidth: 2,
+                          marker: {
+                            enabled: true,
+                            radius: 4,
+                            fillColor: '#3B82F6'
+                          }
+                        }],
+                        legend: {
+                          enabled: false
+                        },
+                        tooltip: {
+                          formatter: function() {
+                            const point = this as any;
+                            return `<b>Discount Rate:</b> ${(point.x * 100).toFixed(3)}%<br/>` +
+                                `<b>NPV:</b> $${point.y.toLocaleString(undefined, {
+                                  minimumFractionDigits: 3,
+                                  maximumFractionDigits: 3
+                                })}`;
+                          }
+                        },
+                        plotOptions: {
+                          line: {
+                            dataLabels: {
+                              enabled: false
+                            }
+                          }
+                        },
+                        credits: {
+                          enabled: false
+                        }
+                      }}
+                  />
+
                 </div>
               </div>
             ) : (

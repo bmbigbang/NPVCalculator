@@ -1,11 +1,11 @@
 ﻿'use client'
 
 import {type Dispatch, type SetStateAction, useEffect, useState} from "react";
-import type {NPVCalculationRequest} from "../types/api.ts";
+import type {NPVCalculationRequest, NPVCalculationResponse} from "../types/api.ts";
 
 const API_BASE_URL = 'http://localhost:5252';
 export const useCalculateNPV = (requestBody: NPVCalculationRequest, submit: boolean, setSubmit: Dispatch<SetStateAction<boolean>>) => {
-    const [npvValues, setNpvValues] = useState<number[]>([]);
+    const [npvValues, setNpvValues] = useState<NPVCalculationResponse[]>([]);
     const [loading, setLoading] = useState(false);
     const getCalculateNPV = async () => {
         setLoading(true);
@@ -22,7 +22,7 @@ export const useCalculateNPV = (requestBody: NPVCalculationRequest, submit: bool
                 console.error('Failed to calculate NPV', response.body);
             }
 
-            setNpvValues(await response.json() as number[]);
+            setNpvValues(await response.json() as NPVCalculationResponse[]);
 
         } catch (error) {
             console.error('An unexpected error occurred while calculating NPV', error);

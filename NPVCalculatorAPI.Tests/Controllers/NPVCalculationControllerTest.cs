@@ -83,9 +83,14 @@ public class NPVCalculationControllerTest
         Assert.Equal(3, npvResults.Count);
         
         // Results should be ordered by discount rate ascending
-        Assert.Equal(123.45, npvResults[0], precision: 2); // 0.05 discount rate
-        Assert.Equal(89.12, npvResults[1], precision: 2); // 0.075 discount rate
-        Assert.Equal(67.89, npvResults[2], precision: 2); // 0.10 discount rate
+        Assert.Equal(123.450, npvResults[0].NpvNetPresentValue, precision: 3); // 0.05 discount rate
+        Assert.Equal(0.050, npvResults[0].DiscountRate, precision: 3);
+        
+        Assert.Equal(89.120, npvResults[1].NpvNetPresentValue, precision: 3); // 0.075 discount rate
+        Assert.Equal(0.075, npvResults[1].DiscountRate, precision: 3);
+        
+        Assert.Equal(67.890, npvResults[2].NpvNetPresentValue, precision: 3); // 0.10 discount rate
+        Assert.Equal(0.100, npvResults[2].DiscountRate, precision: 3);
     }
 
     [Fact]
@@ -221,6 +226,7 @@ public class NPVCalculationControllerTest
         // Assert
         var npvResults = result.ToList();
         Assert.Single(npvResults);
-        Assert.Equal(125.5, npvResults[0]);
+        Assert.Equal(125.500, npvResults[0].NpvNetPresentValue, precision: 3);
+        Assert.Equal(0.050, npvResults[0].DiscountRate, precision: 3);
     }
 }

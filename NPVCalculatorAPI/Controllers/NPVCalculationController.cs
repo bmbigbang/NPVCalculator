@@ -22,7 +22,7 @@ public class NPVCalculationController : ControllerBase
     }
 
     [HttpPost(Name = "CalculateNPV")]
-    public async Task<IEnumerable<double>> GetCalculateNPV([FromBody] NPVBoundsRequest boundsRequest)
+    public async Task<IEnumerable<NPVBoundsResponseRecord>> GetCalculateNPV([FromBody] NPVBoundsRequest boundsRequest)
     {
         var discountRates = new List<double>();
         var currentRate = boundsRequest.LowerBoundDiscountRate;
@@ -80,6 +80,6 @@ public class NPVCalculationController : ControllerBase
         // Return results ordered by discount rate
         return npvResults
             .OrderBy(x => x.DiscountRate)
-            .Select(x => x.NPV);
+            .Select(x => new NPVBoundsResponseRecord(x.NPV, x.DiscountRate));
     }
 }
