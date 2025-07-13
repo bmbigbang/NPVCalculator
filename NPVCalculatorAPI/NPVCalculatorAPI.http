@@ -7,6 +7,7 @@ Content-Type: application/json
   "lowerBoundDiscountRate": 0.01,
   "upperBoundDiscountRate": 0.15,
   "discountRateIncrement": 0.0025,
-  "cashFlows": [200, 300, 400, 500, 600]
+  "cashFlows": [200, 300, 400, 500, 600],
+  "initialInvestment": 1000
 }
 
