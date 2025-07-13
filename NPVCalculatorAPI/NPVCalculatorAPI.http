@@ -1,6 +1,12 @@
 @NPVCalculatorAPI_HostAddress = http://localhost:5252
 
-GET {{NPVCalculatorAPI_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{NPVCalculatorAPI_HostAddress}}/NPVCalculation
+Content-Type: application/json
 
-###
+{
+  "lowerBoundDiscountRate": 0.01,
+  "upperBoundDiscountRate": 0.15,
+  "discountRateIncrement": 0.0025,
+  "cashFlows": [200, 300, 400, 500, 600]
+}
+
