@@ -16,7 +16,7 @@ public class NPVCalculationController : ControllerBase
     }
 
     [HttpPost(Name = "CalculateNPV")]
-    public IEnumerable<(NPVBoundsRequest Request, NpvResponse Response)> GetCalculateNPV([FromBody] NPVBoundsRequest boundsRequest)
+    public IEnumerable<double> GetCalculateNPV([FromBody] NPVBoundsRequest boundsRequest)
     {
         return [];
     }
