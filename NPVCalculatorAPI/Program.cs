@@ -9,6 +9,18 @@ public class Program
         // Add services to the container.
         builder.Services.AddHttpClient();
         builder.Services.AddControllers();
+        
+        // Add CORS services
+        builder.Services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(configurePolicy =>
+            {
+                configurePolicy.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+        });
+        
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
 
@@ -22,8 +34,10 @@ public class Program
 
         app.UseHttpsRedirection();
 
-        app.UseAuthorization();
+        // Use CORS middleware
+        app.UseCors();
 
+        app.UseAuthorization();
 
         app.MapControllers();
 
